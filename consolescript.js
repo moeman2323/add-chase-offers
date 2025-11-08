@@ -74,9 +74,8 @@
   let emptyAttempts = 0;
 
   while (true) {
-    const offer = Array.from(
-      document.querySelectorAll('[role="button"][data-testid="commerce-tile"]')
-    ).find(el => el.querySelector('mds-icon[type="ico_add_circle"]'));
+    // Updated to just grab the first offer tile since they're all addable when filtered
+    const offer = document.querySelector('[role="button"][data-testid="commerce-tile"]');
 
     if (!offer) {
       emptyAttempts++;
@@ -139,7 +138,7 @@
       await sleep(POST_BACK_WAIT);
     }
 
-    // ✅ Ensure we’re actually back to the offers grid (reload if necessary)
+    // ✅ Ensure we're actually back to the offers grid (reload if necessary)
     const backSuccess = await ensureBackToOffers();
     if (!backSuccess) {
       console.error('❌ Could not recover back to offers grid even after reload. Stopping script.');
